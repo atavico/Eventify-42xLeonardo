@@ -1,0 +1,122 @@
+<div class="body-container">
+  <div class="event-container">
+    <div class="event-action" *ngIf="!voidList">
+      {{init()}}
+      <div class="filter">
+        <button style="font-family: 'Montserrat', sans-serif;" mat-stroked-button *ngIf="!filterMy" (click)="filterMyEvents()">
+          myCalendar
+        </button>
+        <button style="font-family: 'Montserrat', sans-serif;" mat-stroked-button *ngIf="filterMy" (click)="showAllEvents()">
+          All events
+        </button>
+        <button mat-stroked-button (click)="openFilter()">
+          <svg xmlns="https://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="newEvent">
+        <button mat-stroked-button (click)="NewEvents()">Create Event</button>
+      </div>
+    </div>
+    <div class="filter-options" *ngIf="filterWin">
+      <form [formGroup]="filterForm">
+        <form class="form-inline waves-light" mdbWavesEffect [formGroup]="filterForm">
+          <div class="md-form mt-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search by title keyword" formControlName="keywords">
+          </div>
+        </form>
+        <mat-form-field class="full-width">
+          <mat-hint>Interval date</mat-hint>
+          <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Start" formControlName="start">
+          <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker1></ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput [ngxMatDatetimePicker]="picker2" placeholder="End" formControlName="end">
+          <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker2></ngx-mat-datetime-picker>
+        </mat-form-field>
+        <form class="form-inline waves-light" mdbWavesEffect [formGroup]="filterForm">
+          <div class="md-form mt-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search by location" formControlName="location">
+          </div>
+        </form>
+        <mat-form-field class="full-width">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category" multiple>
+            <mat-option *ngFor="let category of categoryList" [value]="category">{{category}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button type="button" class="btn btn-secondary custom-button" (click)="filterEvents()">Cerca</button>
+      </form>
+      </div>
+      <div class="noEvent-container" *ngIf="voidList">
+        <div style="display: flex; justify-content: center; margin: 10px;">No events in program</div>
+        <div class="noEvent-list">
+          <div class="first-event">
+            <button mat-stroked-button style="width: 200px; justify-content:center; color:rgba(0,65,112,1); border-radius: 50px; font-family: Futura-Medium;" (click)="NewEvents()">Create Event</button>
+          </div>
+        </div>
+      </div>
+
+    <div class="event-list" *ngIf="!voidList">
+      <div *ngFor="let event of toDisplay; let i=index">
+        <div class="event" (mouseenter)="onMouseEnterShadow()" (mouseleave)="onMouseLeaveShadow()" (click)="toEventPage(event)">
+          <div class="event-first-line">
+            <div class="event-date">
+              <div>{{getMonthName(event.start.getMonth())}}</div>
+              <div style="font-size: 22px;">{{event.start.getDate()}}</div>
+              <div>{{event.start.getFullYear()}}</div>
+            </div>
+            <div class="event-central-block">
+              <div style="display: flex; flex-direction: row; align-items: center;">
+                <div class="event-name">{{event.title}}</div>
+              </div>
+              <div class="event-short-info">
+                <div class="event-time">
+                  <mat-icon>access_time</mat-icon>
+                  <div>{{event.formatTime(event.start)}}</div>
+                </div>
+                <div class="event-position">
+                  <mat-icon>location_on</mat-icon>
+                  <button class="noC-button">{{event.location}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="event-buttons">
+            <div class="event-partecipants" >
+              <button mat-fab style="background-color: transparent; box-shadow: none; border: none; color: black;" 
+              (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()"
+              [matMenuTriggerFor]="matMenu">
+                <mat-icon>group</mat-icon>
+              </button>
+              <mat-menu #matMenu="matMenu">
+                <ng-container *ngIf="event.subscribers.length > 0; else noSubscribers">
+                  <button mat-menu-item *ngFor="let user of event.subscribers">{{ user }}</button>
+                </ng-container>
+                <ng-template #noSubscribers>
+                  <button mat-menu-item disabled>No Subscriptions</button>
+                </ng-template>
+              </mat-menu>
+            </div>
+              
+            <div *ngIf="!event.subscribers.includes(email)">
+              <button type="button" class="btn btn-secondary custom-button" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" style="box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); text-justify: center;" (click)="subscribe(event)">
+                <div style="display: flex; justify-content: center;">Subscribe</div>
+              </button>
+            </div>
+          </div>
+            <div *ngIf="event.subscribers.includes(email)">
+              <button type="button" class="btn btn-secondary custom-button" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" style=" box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4) inset;" (click)="unsubscribe(event)">
+                <div style="display: flex; justify-content: center;">Unsubscribe</div>
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

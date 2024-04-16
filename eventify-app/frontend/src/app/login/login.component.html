@@ -1,0 +1,29 @@
+<div class="body-container">
+  <div class="span0">E' bello rivederti</div>
+  <div class="login-form-container">
+    <div class="span1">Accedi per gestire i tuoi eventi</div>
+    <form [formGroup]="loginForm">
+      <mat-form-field class="full-width">
+        <mat-label>Inserisci email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Email">
+        <mat-hint *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+          Email non valida
+        </mat-hint>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          Campo obbligatorio
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="full-width">
+        <mat-label>Inserisci password</mat-label>
+        <input type="password" matInput formControlName="password" placeholder="Password">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Campo obbligatorio
+      </mat-error>
+    </mat-form-field>
+    </form>
+    <div class="button-container">
+      <button mat-stroked-button class="logbutton" (click)="onLogin()">LOG IN</button>
+    </div>
+  </div>
+</div>

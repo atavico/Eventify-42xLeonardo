@@ -1,0 +1,149 @@
+/* For Mobile devices */
+@media screen and (min-width: 320px)
+            and (max-width: 480px) {
+      .home-container-focus {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .title-container {
+        font-size: 3em;
+      }
+}
+
+/* For Ipad, Tablets */
+@media screen and (min-width: 481px)
+            and (max-width: 768px) {
+    .home-container-focus {
+        width: 90%;
+    }
+    .title-container {
+      font-size: 5em;
+    }
+}
+
+/* For Small screens, laptop */
+@media screen and (min-width: 769px)
+            and (max-width: 1024px) {
+    .home-container-focus {
+        width: 66.66%;
+    }
+    .title-container {
+      font-size: 5em;
+    }
+}
+
+/* For Desktop-large screens View */
+@media screen and (min-width: 1025px)
+            and (max-width: 1200px) {
+    .home-container-focus {
+        width: 50%;
+    }
+    .title-container {
+      font-size: 5em;
+    }
+}
+
+/* For Extra large screens - Tv */
+@media screen and (min-width: 1201px) {
+    .home-container-focus {
+        width: 50%;
+    }
+    .title-container {
+      font-size: 5em;
+    }
+}
+
+
+.menu li:hover {
+  background-color: #0099cc;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.home-container {
+  height: 100%;
+  justify-content: center;
+}
+
+.home-container-focus {
+  width: 100%;
+  height: auto;
+  background-color: rgba(241, 241, 241, 1);
+  padding: 10px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  margin:auto;
+
+}
+
+.title {
+  width: auto;
+  display:flex;
+  margin: auto;
+  text-align: center;
+  font-family: 'Montserrat';
+  line-height: 1em;
+  letter-spacing: normal;
+}
+
+.home-subtitle {
+  height: 15%;
+  width: 70%;
+  line-height: 2em;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right:auto;
+  align-items: center;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+}
+
+
+.home-button {
+  color: rgba(0, 65, 112, 1);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2vh;
+  height: 37px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: center;
+  border-radius: 5px;
+  margin: 2%;
+}
+
+.home-button-container {
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-button {
+  color: rgba(0, 65, 112, 1);
+  font-family: 'Montserrat';
+  font-size: 2vh;
+  height: 37px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.home-image {
+  margin: auto;
+  margin-top: 10px;
+  width: 80%;
+  height: 40%;
+  background: #D9D9D9;
+  border-radius: 19px
+}

@@ -1,0 +1,67 @@
+version: '3.4'
+services:
+
+  frontend:
+    container_name: frontend
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - backend
+    ports:
+      - "4200:4200"
+    networks:
+      - frontend
+      - eventify-network
+    volumes:
+      - ./frontend:/usr/src/frontend
+      - /usr/src/frontend/node_modules
+    restart: on-failure
+
+  backend:
+    container_name: backend
+    image: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    networks:
+      - eventify-network
+    volumes:
+      - ./backend:/usr/src/backend
+      - ./backend/logs:/usr/src/backend/logs
+      - /usr/src/backend/node_modules
+    restart: on-failure
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - eventify-network
+    volumes:
+      - db:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: on-failure
+
+networks:
+  frontend:
+  eventify-network:
+
+volumes:
+  db:
+    driver: local
+  

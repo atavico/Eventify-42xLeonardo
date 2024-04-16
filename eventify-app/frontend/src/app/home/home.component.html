@@ -1,0 +1,25 @@
+<div class="home-container">
+    <div class="home-container-focus">
+        <div class="title-container">
+            <div class="title" style="color: black; font-weight: 700; margin-top: 3%;">Let’s organize your events,</div>
+            <div class="title" style="color: #004170; font-weight: 800; margin-top: 2%;">together</div>
+        </div>
+        <div class="home-subtitle">
+            "Join us to create unforgettable moments with those you love, sharing laughter, emotions, and extraordinary experiences."
+        </div>
+        <div class="home-button-container">
+            <button class="home-button" mat-raised-button routerLink="/signup">Get Started</button>
+        </div>
+    <div class="home-image">
+        <google-map height="500px"
+            width="100%"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="moveMap($event)"
+            (mapMousemove)="move($event)">
+        </google-map>
+
+    <div>Latitude: {{display?.lat}}</div>
+    <div>Longitude: {{display?.lng}}</div>
+    </div>
+</div>

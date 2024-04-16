@@ -1,0 +1,61 @@
+<div class="body-container">
+  <div class="event-container" *ngIf="eventLoaded()">
+    <div class="event-image">
+      <div class="event-date">
+        <div>{{ event.getMonthName(event.start.getMonth()) }}</div>
+        <div style="font-size: 22px;">{{ event.start.getDate() }}</div>
+        <div>{{ event.start.getFullYear() }}</div>
+      </div>
+      <app-carousel [imgArray]="pic_array"></app-carousel>
+    </div>
+    <div class="event-interaction">
+      <div class="child event-info">
+        <div class="event-title">{{ event.title }}</div>
+        <div class="event-location">{{ event.location }}</div>
+        <div class="event-time">Start: {{ event.formatTime(event.start) }}</div>
+        <div class="event-time">End: {{ event.formatTime(event.end) }}</div>
+        <div class="event-description">Description:</div>
+        <div>{{event.description}}</div>
+      </div>
+      <div child class="event-buttons">
+        <div *ngIf="!event.subscribers.includes(email)">
+          <button type="button" class="btn btn-secondary custom-button" style="box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); text-justify: center;" (click)="subscribe()">
+            <div style="display: flex; justify-content: center;">Subscribe</div>
+          </button>
+        </div>
+        <div *ngIf="event.subscribers.includes(email)">
+          <button type="button" class="btn btn-secondary custom-button" style=" box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4) inset;" (click)="unsubscribe()">
+            <div style="display: flex; justify-content: center;">Unsubscribe</div>
+          </button>
+        </div>
+        <div *ngIf="chat" style="margin: 10px;">
+          <button type="button" class="btn btn-secondary custom-button" style="box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4) inset; text-justify: center;" (click)="closeChat()">
+            <div style="display: flex; justify-content: center;">Chat</div>
+          </button>
+        </div>
+        <div *ngIf="!chat" style="margin: 10px;">
+          <button type="button" class="btn btn-secondary custom-button" style="box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); text-justify: center;" (click)="openChat()">
+            <div style="display: flex; justify-content: center;">Chat</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event-chat" *ngIf="chat">
+    
+    <div *ngFor="let m of chat_map">
+      
+      <div *ngIf="!ismyMessage(m)" class="mymessage">{{m}}</div>
+      <div *ngIf="ismyMessage(m)" class="message">{{m}}</div>
+     
+    </div>
+    <div style="padding: 10px; display: flex; flex-direction: row; align-items: end;">
+      <div style="flex:4;">
+        <input class="form-control mr-sm-2" type="text" id="message">
+      </div>
+      <div style="flex: 0.5; margin: 5px;">
+        <button (click)="sendMsg()"><img width="24" height="24" src="https://img.icons8.com/material-outlined/24/sent.png" alt="sent"/></button>
+      </div>
+    </div>
+  </div>
+</div>

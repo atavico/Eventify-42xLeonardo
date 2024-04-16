@@ -1,0 +1,41 @@
+.formControl {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  }
+
+  input {
+    width: 100%;
+    height: 5em;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.25);
+  }
+
+  .signup-button-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 10px;
+    align-items: center;
+  }
+
+  .relogin-container {
+    margin:10px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-button{
+    color: rgba(0, 65, 112, 1);
+    font-weight: 1000;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .noC-button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+  

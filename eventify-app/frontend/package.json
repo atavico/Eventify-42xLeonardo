@@ -1,0 +1,51 @@
+{
+  "name": "front-end",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "npx ng serve --ssl true --ssl-cert ssl/cert.pem --ssl-key ssl/key.pem --host 0.0.0.0 --poll=500",
+    "build": "npx ng build",
+    "test": "npx ng test --browsers=ChromeHeadless"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular-material-components/datetime-picker": "^16.0.1",
+    "@angular/animations": "^16.1.0",
+    "@angular/cdk": "^16.2.7",
+    "@angular/common": "^16.1.0",
+    "@angular/compiler": "^16.1.0",
+    "@angular/core": "^16.1.0",
+    "@angular/forms": "^16.1.0",
+    "@angular/google-maps": "^16.2.9",
+    "@angular/material": "^16.2.4",
+    "@angular/platform-browser": "^16.1.0",
+    "@angular/platform-browser-dynamic": "^16.1.0",
+    "@angular/router": "^16.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^15.1.1",
+    "@types/googlemaps": "^3.43.3",
+    "bootstrap": "^5.3.2",
+    "component": "^1.1.0",
+    "ng-image-slider": "^7.0.1",
+    "ngx-bootstrap": "^11.0.2",
+    "ngx-cookie": "^6.0.1",
+    "ngx-cookie-service": "^16.0.1",
+    "ngx-material-timepicker": "^13.1.1",
+    "primeng": "^16.5.0",
+    "rxjs": "~7.8.0",
+    "tailwindcss": "^3.3.3",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.13.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^16.1.4",
+    "@angular/cli": "~16.1.4",
+    "@angular/compiler-cli": "^16.1.0",
+    "@types/jasmine": "~4.3.0",
+    "jasmine-core": "~4.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.1.3"
+  }
+}

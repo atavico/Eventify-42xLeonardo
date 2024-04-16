@@ -1,0 +1,62 @@
+<div class="body-container">
+  <div class="span0">Organizziamo eventi, insieme</div>
+    <div class="signup-form-container">
+      <div class="span1">Compila il form per registrarti</div>
+        <form [formGroup]="signupForm">
+          <mat-form-field class="full-width">
+            <input type="name" matInput formControlName="name" placeholder="Name">
+            <mat-error *ngIf="signupForm.get('name')?.hasError('required')">
+              Campo obbligatorio
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input type="lastname" matInput formControlName="lastname" placeholder="Lastname">
+            <mat-error *ngIf="signupForm.get('lastname')?.hasError('required')">
+              Campo obbligatorio
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input type="email" matInput formControlName="email" placeholder="Email">
+            <mat-hint *ngIf="signupForm.get('email')?.hasError('email') && !signupForm.get('email')?.hasError('required')">
+              Email non valida
+            </mat-hint>
+            <mat-error *ngIf="signupForm.get('email')?.hasError('required')">
+              Campo obbligatorio
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Choose a date</mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker">
+            <mat-error *ngIf="signupForm.get('date')?.hasError('required')">
+              Campo obbligatorio
+            </mat-error>
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input type="password" matInput formControlName="password" placeholder="Password">
+            <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
+              Campo obbligatorio
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input type="password" matInput formControlName="pswRepeat" placeholder="Repeat password">
+            <mat-error *ngIf="signupForm.get('pswRepeat')?.hasError('required')">
+              Campo obbligatorio
+            </mat-error>
+          </mat-form-field>
+        </form>
+        <div class="signup-button-container">
+          <button mat-stroked-button style="width: 200px; color:rgba(0,65,112,1); border-radius: 50px; font-family: 'Montserrat', sans-serif;" (click)="onSignin()">Sign In</button>
+        </div>
+        <div class="signup-button-container">
+          <button mat-stroked-button style="width: 200px; color:rgba(0,65,112,1); border-radius: 50px; font-family: 'Montserrat', sans-serif;" (click)="googleSignIn()">Sign In with Google</button>
+        </div>
+
+        <div class="relogin-container">
+          <div style="display: flex; align-items: center; " >Hai già un account? </div>
+          <div routerLink="/login" class="login-button noC-button"><a>Accedi</a></div>
+        </div>
+    </div>
+</div>

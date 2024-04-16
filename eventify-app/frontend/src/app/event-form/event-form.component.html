@@ -1,0 +1,90 @@
+<div class="body-container">
+    <div class="span0" *ngIf="!this.isEdit">Create YOUR event</div>
+    <div class="span0" *ngIf="this.isEdit">Edit YOUR event</div>
+    <div class="event-form-container">
+        <form [formGroup]="eventForm">
+            <!-- Titolo dell'evento -->
+            <mat-form-field class="full-width">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title">
+            </mat-form-field>
+            
+            <!-- Descrizione dell'evento -->
+            <mat-form-field class="full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="Ex. Short description"></textarea>
+              </mat-form-field>
+
+
+
+            <!-- DATETIME TEMPLATE COMMENTARE E SCOMMENTARE SOTTO PER TORNARE A PRIMA -->
+            <mat-form-field class="full-width">
+                <mat-hint>Starting date</mat-hint>
+                <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Start" formControlName="start">
+                <mat-datepicker-toggle matIconSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker1 class="custom-datetime-picker" [defaultTime]="defaultStart"></ngx-mat-datetime-picker>
+             </mat-form-field>
+             <!--
+             <mat-form-field class="example-full-width">
+                <mat-label>Start</mat-label>
+                <input matInput formControlName="date" [matDatepicker]="picker">
+                <mat-error *ngIf="signupForm.get('date')?.hasError('required')">
+                  Campo obbligatorio
+                </mat-error>
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            -->
+            <mat-form-field class="full-width">
+                <mat-hint>Ending date</mat-hint>
+               <input matInput [ngxMatDatetimePicker]="picker2" placeholder="End" formControlName="end">
+               <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+               <ngx-mat-datetime-picker #picker2 class="custom-datetime-picker" [defaultTime]="defaultEnd"></ngx-mat-datetime-picker>
+            </mat-form-field>
+
+            <!-- Luogo dell'evento -->
+            <mat-form-field class="full-width">
+                <mat-label>Luogo:</mat-label>
+                <input matInput type="text" id="location" name="location" formControlName="location">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Category</mat-label>
+                <select matNativeControl required formControlName="category">
+                  <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                </select>
+            </mat-form-field>
+
+            <!-- Upload images -->
+            <input type="file" class="file-input" multiple
+                [accept]="requiredFileType"
+                (change)="onFileSelected($event)" #fileUpload>
+
+                <!-- {{fileName || "No file uploaded yet."}} -->
+                
+                <button style="margin:15px;" mat-mini-fab class="upload-btn"
+                    (click)="fileUpload.click()"
+                    [ngStyle]="{ 'background-color': 'white' }">
+                    <mat-icon style="color:rgba(0, 65, 112, 1);">attach_file</mat-icon>
+                </button>
+            <div class="file-upload" *ngFor="let img of upload_img">
+                {{img}} <mat-icon class="cancel-upload" (click)="removeUpload(img)">delete_forever</mat-icon>
+            </div>
+            <div class="progress">
+
+                <mat-progress-bar class="progress-bar" mode="determinate"
+                                  [value]="uploadProgress" *ngIf="uploadProgress">
+                </mat-progress-bar>
+              
+                <mat-icon class="cancel-upload" (click)="cancelUpload()" 
+                          *ngIf="uploadProgress">delete_forever</mat-icon>
+            </div>
+
+            <!-- Pulsante di invio -->
+            <div class="event-button-container">
+                <button mat-stroked-button style="width: 400px; justify-content: center; color:rgba(0, 65, 112, 1); border-radius: 50px; font-family: 'Montserrat', sans-serif;" (click)="newEvent()">Crea evento</button>
+            </div>
+        </form>
+    </div>
+</div>
